@@ -7,13 +7,14 @@ const
     haikuRouter = require('./routers/haikuRouter');
 
 // CONNECT TO DB
-mongoose.connect('mongodb://localhost/node-express-mongoose-practice', (err) => {
-    console.log(err || "SUCCESSFULLY CONNECTED TO MONGODB")
+mongoose.connect(process.env.MONGODB_URI, (err) => {
+    console.log(err || "CONNECTED TO MONGODB 👍")
 })
 
 // MIDDLEWARE
 app.use(logger('dev'))
 app.use(express.json())
+app.use(express.static('public'))
 
 // Router
 app.use('/api/haikus', haikuRouter)

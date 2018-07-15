@@ -6,4 +6,4 @@ const
     router.get('/', Haikus.showAll)
     router.post('/', Haikus.create);
 
-    module.exports = router
+    module.exports = HaikuRouter

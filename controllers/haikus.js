@@ -1,6 +1,9 @@
 const Haiku = require('../models/haiku')
 
-exports.showAll = (req, res) => {
+module.exports = {
+
+// Show all Books
+index: (req, res) => {
     Haiku.find({}, (err, haikus) => {
         if (err) {
             res.json({ status: "FAIL", err })
@@ -8,9 +11,10 @@ exports.showAll = (req, res) => {
             res.json({ status: "SUCCESS", payload:{ haikus } })
         }
     })
-}
+},
 
-exports.create = (req, res) => {
+// Create a new User
+create: (req, res) => {
     Haiku.create(req.body, (err, newHaiku) => {
         if (err) {
             res.json({ status: "FAIL", err });
@@ -19,4 +23,6 @@ exports.create = (req, res) => {
             } })
         }
     })
-};
+}
+
+}
