@@ -1,9 +1,11 @@
 const 
     express = require('express'),
-    router = express.Router(),
-    Haikus = require('../controllers/haikus')
+    haikuRouter = new express.Router(),
+    haikusCtrl = require('../controllers/haikus')
 
-    router.get('/', Haikus.showAll)
-    router.post('/', Haikus.create);
+    haikuRouter.get('/', haikusCtrl.index)
+    haikuRouter.post('/', haikusCtrl.create)
+    haikuRouter.delete('/:id', haikusCtrl.destroy)
 
-    module.exports = HaikuRouter
+
+    module.exports = haikuRouter

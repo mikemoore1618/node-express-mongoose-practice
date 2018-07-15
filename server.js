@@ -1,10 +1,14 @@
+require('dotenv').config()
+
 const 
     express = require('express'),
     app = express(),
     logger = require('morgan'),
     mongoose = require('mongoose'),
     PORT = 3000,
+    bodyParser = require('body-parser')
     haikuRouter = require('./routers/haikuRouter');
+
 
 // CONNECT TO DB
 mongoose.connect(process.env.MONGODB_URI, (err) => {
@@ -15,8 +19,9 @@ mongoose.connect(process.env.MONGODB_URI, (err) => {
 app.use(logger('dev'))
 app.use(express.json())
 app.use(express.static('public'))
+app.use(bodyParser.json())
 
-// Router
+// ROUTER
 app.use('/api/haikus', haikuRouter)
 
 // LISTEN ON THIS PORT
