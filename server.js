@@ -6,7 +6,6 @@ const
     logger = require('morgan'),
     mongoose = require('mongoose'),
     PORT = 3000,
-    bodyParser = require('body-parser')
     haikuRouter = require('./routers/haikuRouter');
 
 
@@ -18,8 +17,6 @@ mongoose.connect(process.env.MONGODB_URI, (err) => {
 // MIDDLEWARE
 app.use(logger('dev'))
 app.use(express.json())
-app.use(express.static('public'))
-app.use(bodyParser.json())
 
 // ROUTER
 app.use('/api/haikus', haikuRouter)

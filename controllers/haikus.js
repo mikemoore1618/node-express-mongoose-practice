@@ -1,38 +1,56 @@
-const Haiku = require('../models/Haiku.js')
+const Haiku = require('../models/Haiku')
 
-module.exports = {
+// SHOW ALL
+exports.index = (req, res) => {
+  Haiku.find({}, (err, haikus) => {
+    if(err) {
+      res.json({ status: "FAIL", err })
+    } else {
+      res.json({ status: "SUCCESS", payload: { haikus } })
+    }
+  })
+},
 
-//SHOW ALL
-index: (req, res) => {
-    Haiku.find({}, (err, haikus) => {
-        if (err) {
-            res.json({ status: "FAIL", err })
-        } else {
-            res.json({ status: "SUCCESS", payload:{ haikus } })
-        }
-    })
+// SHOW ID
+exports.showHaiku = (req, res) => {
+  Haiku.findById(req.params.id, (err, haikuFromDB) => {
+    if(err) {
+      res.json({ status: "FAIL", err })
+    } else {
+      res.json({  status: "SUCCESS", payload: { haikuFromDB } })
+    }
+  })
 },
 
 // CREATE
-create: (req, res) => {
-    Haiku.create(req.body, (err, newHaiku) => {
-        if (err) {
-            res.json({ status: "FAIL", err });
-        } else {
-            res.json({ success: true, message: 'HAIKU CREATED', Haiku: newHaiku
-            })
-        }
-    })
+exports.create = (req, res) => {
+  Haiku.create(req.body, (err, newHaiku) => {
+    if(err) {
+      res.json({ status: "FAIL", err })
+    } else {
+      res.json({ status: "SUCCESS", payload: { newHaiku } })
+    }
+  })
 },
 
-// DELETE
-destroy: (req, res) => {
-    let id = req.params.id
-    User.findByIdAndRemove(id, (err, deletedHaiku) => {
-      if (err) return console.log(err)
-      res.json({ success: true, message: 'HAIKU DELETED' })
-    })
-  }
-}
+// PATCH
+exports.update = (req, res) => {
+  Haiku.update({_id: req.params.id}, {$set: req.body}, (err, haikus) => {
+    if(err) {
+      res.json({ status: "FAIL", err })
+    } else {
+      res.json({ status: "SUCCESS", payload: { haikus } })
+    }
+  })
+},
 
-
+//DELETE
+exports.destroy = (req, res) => {
+  Haiku.findByIdAndRemove({_id: req.params.id}, (err, deletedHaiku) => {
+    if(err) {
+      res.json({ status: "FAIL", err })
+    } else {
+      res.json({ status: "SUCCESS", payload: { deletedHaiku }})
+    }
+  })
+};
