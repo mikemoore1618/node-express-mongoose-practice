@@ -4,5 +4,6 @@ const
     Haikus = require('../controllers/haikus')
 
     router.get('/', Haikus.showAll)
+    router.post('/', Haikus.create);
 
     module.exports = router
