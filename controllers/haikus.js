@@ -1,4 +1,4 @@
-const Haiku = require('../models/dog')
+const Haiku = require('../models/haiku')
 
 exports.showAll = (req, res) => {
     Haiku.find({}, (err, haikus) => {
