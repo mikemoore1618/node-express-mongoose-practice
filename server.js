@@ -10,8 +10,8 @@ const
 
 
 // CONNECT TO DB
-mongoose.connect(process.env.MONGODB_URI, (err) => {
-    console.log(err || "CONNECTED TO MONGODB 👍")
+mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true }, (err) => {
+    console.log(err || "CONNECTED TO MONGODB")
 })
 
 // MIDDLEWARE
